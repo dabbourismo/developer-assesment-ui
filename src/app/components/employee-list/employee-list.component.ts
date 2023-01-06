@@ -108,8 +108,8 @@ export class EmployeeListComponent implements OnInit {
 
   logOut = () => {
     localStorage.removeItem("jwt");
+    this.router.navigate([""]);
     this.signalr.stopConnection();
-    this.router.navigate(["login"]);
   }
 
    sendNotification = () => {

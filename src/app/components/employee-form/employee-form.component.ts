@@ -32,8 +32,8 @@ export class EmployeeFormComponent implements OnInit {
   public employesFormCreate() {
     this.employeesForm = new FormGroup({
       id: new FormControl(null),
-      name: new FormControl('', [Validators.required, Validators.maxLength(200)]),
-      phone: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+      name: new FormControl('', [Validators.required, Validators.maxLength(200), Validators.minLength(3)]),
+      phone: new FormControl('', [Validators.required, Validators.maxLength(50), Validators.minLength(3)]),
     });
   }
 

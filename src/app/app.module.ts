@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RegisterationComponent } from './components/registeration/registeration.component';
-import { LoginComponent } from './components/login/login.component';
+//import { LoginComponent } from './components/login/login.component';
 import { EmployeeListComponent } from './components/employee-list/employee-list.component';
 import { EmployeeFormComponent } from './components/employee-form/employee-form.component';
 import { MaterialComponentsModule } from './modules/material-components/material-components.module';
@@ -20,7 +20,7 @@ import { LoaderInterceptorService } from './interceptors/loader-interceptor.serv
   declarations: [
     AppComponent,
     RegisterationComponent,
-    LoginComponent,
+    //LoginComponent,
     EmployeeListComponent,
     EmployeeFormComponent,
     MatConfirmDialogComponent,
@@ -33,7 +33,7 @@ import { LoaderInterceptorService } from './interceptors/loader-interceptor.serv
     MaterialComponentsModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [
     {
