@@ -1,0 +1,18 @@
+<div class="box">
+    <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+        <div class="flex-container">
+            <mat-form-field>
+                <mat-label>Username</mat-label>
+                <input [(ngModel)]="credentials.username" required type="email" id="username" name="username" matInput>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Password</mat-label>
+                <input [(ngModel)]="credentials.password" required type="password" id="password" name="password"
+                    matInput>
+            </mat-form-field>
+
+            <button mat-flat-button type="submit" [disabled]="!loginForm.valid" color="primary">Login</button>
+        </div>
+    </form>
+</div>

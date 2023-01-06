@@ -1,0 +1,85 @@
+<div class="gradient-Header">
+    <div class="gradient-child">
+        <h3>Employees List</h3>
+    </div>
+</div>
+
+
+<!-- Search form -->
+
+<div class="row justify-content-center align-items-center">
+    <div class="col-md-9 col-lg-6 col-sm-6">
+        <mat-form-field>
+            <input matInput [(ngModel)]="searchText" type="text" placeholder="Search">
+        </mat-form-field>
+    </div>
+
+    <div class="col-md-3 col-lg-6 col-sm-6">
+        <button mat-raised-button (click)="employeesSearch(searchText)" color="accent">
+            <mat-icon>search</mat-icon>
+            Search
+        </button>
+    </div>
+</div>
+
+
+
+
+<div class="row" style="margin-top: 20px;margin-bottom: 20px;">
+    <div class="col-md-2 mb-2">
+        <button (click)="openDialog(0)" mat-raised-button color="primary">
+            <mat-icon>add</mat-icon>
+            New Employee
+        </button>
+    </div>
+</div>
+
+<!-- Loading Indicator -->
+<app-loader></app-loader>
+
+<div class="mat-elevation-z5">
+    <table mat-table [dataSource]="dataSource" matSort>
+        <!-- Columns -->
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="phone">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Phone</th>
+            <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+        </ng-container>
+
+        <!-- Buttons -->
+
+        <ng-container matColumnDef="update">
+            <th mat-header-cell *matHeaderCellDef>Edit</th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-icon-button color="accent" (click)="openDialog(element.id)">
+                    <mat-icon class="mat-18">edit</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="delete">
+            <th mat-header-cell *matHeaderCellDef>Delete</th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-icon-button color="warn" (click)="onDeleteClick(element.id)">
+                    <mat-icon class="mat-18">delete</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns ; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+
+    </table>
+
+    <!-- Paginator -->
+    <mat-paginator [length]="100" [pageSize]="5" showFirstLastButtons [pageSizeOptions]="[5, 10, 25, 100]">
+    </mat-paginator>
+
+
+</div>
