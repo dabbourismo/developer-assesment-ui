@@ -11,7 +11,9 @@ import { DialogService } from 'src/app/services/dialog.service';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { NotificationDialogService } from 'src/app/services/notification-dialog.service';
 import { Employee } from 'src/app/_interfaces/employee';
+import { NotificationModel } from 'src/app/_interfaces/notificationModel';
 import { EmployeeFormComponent } from '../employee-form/employee-form.component';
+import { SignalrService } from '../signalr/signalr.service';
 const jwtHelper = new JwtHelperService();
 @Component({
   selector: 'app-employee-list',
@@ -36,11 +38,18 @@ export class EmployeeListComponent implements OnInit {
   constructor(private router: Router, private httpService: EmployeeService,
     private confirmDialogService: DialogService,
     private notificationService: NotificationDialogService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private signalr:SignalrService
   ) { }
 
   ngOnInit(): void {
     this.employeesGet();
+    this.signalr.startConnection();
+    this.signalr.onRecieveServerNotification();
+    this.signalr.messageReceived.subscribe(message => {
+      console.log('Message is',message);
+      this.notificationService.delete(`Notification is ${message}`);
+    });
   }
 
   ngAfterViewInit(): void {
@@ -53,11 +62,6 @@ export class EmployeeListComponent implements OnInit {
       .subscribe();
   }
 
-  public employeesSearch(value: string) {
-    this.httpService.employeeSearch(value)
-      .pipe(map(response => this.dataSource.data = response))
-      .subscribe();
-  }
 
   public onDeleteClick(id: number) {
     const dialogRef = this.confirmDialogService.openConfirmDialog('Are you sure you want to delete this employee?');
@@ -94,20 +98,6 @@ export class EmployeeListComponent implements OnInit {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   isUserAuthenticated = (): boolean => {
     const token = localStorage.getItem("jwt");
     if (token && !jwtHelper.isTokenExpired(token)) {
@@ -118,6 +108,15 @@ export class EmployeeListComponent implements OnInit {
 
   logOut = () => {
     localStorage.removeItem("jwt");
+    this.signalr.stopConnection();
     this.router.navigate(["login"]);
+  }
+
+   sendNotification = () => {
+    let notification: NotificationModel = {
+     userId:'5',
+     message:'this is a notification'
+    }
+    this.httpService.sendNotification(notification).subscribe();
   }
 }

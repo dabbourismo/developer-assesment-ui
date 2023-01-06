@@ -37,7 +37,9 @@ import { LoaderInterceptorService } from './interceptors/loader-interceptor.serv
   ],
   providers: [
     {
-      provide: HTTP_INTERCEPTORS, useClass: AuthinterceptorService, multi: true
+      provide: HTTP_INTERCEPTORS, 
+      useClass: AuthinterceptorService, 
+      multi: true
     },
     {
       provide: HTTP_INTERCEPTORS,
@@ -48,6 +50,3 @@ import { LoaderInterceptorService } from './interceptors/loader-interceptor.serv
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-// {
-//   // provide: HTTP_INTERCEPTORS, useClass: AuthinterceptorService, multi: true
-// },

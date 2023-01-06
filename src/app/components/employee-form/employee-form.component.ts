@@ -21,14 +21,15 @@ export class EmployeeFormComponent implements OnInit {
     public httpService: EmployeeService) { }
 
     ngOnInit(): void {
-      this.levelsFormCreate();
+      debugger;
+      this.employesFormCreate();
       if (this.data.id != 0) {
         this.employeeGetById(this.data.id);
       }
     }
 
     //Form Values -------
-  public levelsFormCreate() {
+  public employesFormCreate() {
     this.employeesForm = new FormGroup({
       id: new FormControl(null),
       name: new FormControl('', [Validators.required, Validators.maxLength(200)]),
@@ -76,8 +77,10 @@ export class EmployeeFormComponent implements OnInit {
   }
 
   employeeGetById(id: number) {
+    debugger;
     this.httpService.employeeGetById(id).pipe(
       map(response => {
+        debugger;
         this.employeesForm.get('id')!.setValue(response.id);
         this.employeesForm.get('name')!.setValue(response.name);
         this.employeesForm.get('phone')!.setValue(response.phone);

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../environments/environments';
 import { Employee } from '../_interfaces/employee';
+import { NotificationModel } from '../_interfaces/notificationModel';
 // import { environment } from '@environments/environment';
 
 @Injectable({
@@ -11,6 +12,7 @@ import { Employee } from '../_interfaces/employee';
 export class EmployeeService {
 
   url = `${environment.urlAddress}employee/`;
+  notificationsUrl = `${environment.urlAddress}notifications/`;
 
   constructor(private http: HttpClient) { }
 
@@ -47,5 +49,9 @@ export class EmployeeService {
     const params = new HttpParams()
       .set('id', id.toString());
     return this.http.post<any>(`${this.url}DeleteEmployee`, {}, { params: params });
+  }
+
+  sendNotification(notification: NotificationModel): Observable<void> {
+    return this.http.post<void>(`${this.notificationsUrl}SendNotification`, notification);
   }
 }
